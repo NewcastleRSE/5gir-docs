@@ -18,7 +18,7 @@ When you create a new project, we recommend that you do the following additional
 
 
 
-Visit the page at (https://newcastlerse.github.io/5gir-docs)[https://newcastlerse.github.io/5gir-docs]
+Visit the page at [https://newcastlerse.github.io/5gir-docs](https://newcastlerse.github.io/5gir-docs)
 
 
 ### Project Team
