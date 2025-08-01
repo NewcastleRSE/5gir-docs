@@ -1,7 +1,10 @@
 # Standard Project
-A template repo for the standard RSE project
 
-## >> INITIAL SETUP FOR NEW PROJECTS <<   
+The files in this repository build a documentation website for the 5GIR users on how to export the farm data from the data warehouse.
+
+
+
+## >> INITIAL SETUP FOR NEW PROJECTS <<   Z
 
 When you create a new project, we recommend that you do the following additional manual steps (and then delete this section of the readme).
 
@@ -13,7 +16,10 @@ When you create a new project, we recommend that you do the following additional
 
 ## About
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin ante at eleifend eleifend. Sed non vestibulum nisi. Aliquam vel condimentum quam. Donec fringilla et purus at auctor. Praesent euismod vitae metus non consectetur. Sed interdum aliquet nisl at efficitur. Nulla urna quam, gravida eget elementum eget, mattis nec tortor. Fusce ut neque tellus. Integer at magna feugiat lacus porta posuere eget vitae metus.
+
+
+Visit the page at (https://newcastlerse.github.io/5gir-docs)[https://newcastlerse.github.io/5gir-docs]
+
 
 ### Project Team
 
