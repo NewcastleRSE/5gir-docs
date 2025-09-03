@@ -3,11 +3,13 @@
 This guide (https://newcastlerse.github.io/5gir-docs) is in our GitHub repository
 (https://github.com/NewcastleRSE/5gir-docs).
 
+
 ## Install Required Software
 
 Install the following programs:
 - [Anaconda](install_anaconda.md)
 - [PostgreSQL](install_postgres.md)
+
 
 ## Conda Environment
 
@@ -100,11 +102,11 @@ You can log in to the 5GIR database with either CMD or bash code
    set "port=host_port"
    set "username=user_name"
    ```
-3. If you have admin permissions, and you have added the Postgres directory containing the file "psql.exe" to the
-   environment variable `PATH`, then you can skip this step and move to step 4. Otherwise, you need to locate the
-   directory and add it to `PATH` every time you open a new Git bash window before running the command `psql`. An
-   example of a Postgres directory is "C:\Program Files\PostgreSQL\14\bin" which must
-   contain the file "psql.exe". If this is the case for you, you can add it to `PATH` with:
+3. If you have admin permissions, and you have added the Postgres directory containing the file `psql.exe` to the Path
+   environment variable, then you can skip this step and move to step 4. Otherwise, you need to locate the directory and
+   add it to `PATH` every time you open a new Git bash window before running the command `psql`. An example of a
+   Postgres directory is `C:\Program Files\PostgreSQL\14\bin` which must contain the file "psql.exe". If this is the
+   case for you, you can add it to `PATH` with:
    ```CMD
    set "PATH=%PATH%;C:\Program Files\PostgreSQL\14\bin;"
    ```
