@@ -3,7 +3,7 @@
 
 ## On Ubuntu
 
-Install `postgresql-14` in your local machine with:
+Install PostgreSQL on Ubuntu with:
 ```bash
 sudo apt-get install postgresql-14 -y
 ```
@@ -17,8 +17,8 @@ Install PostgreSQL on Windows with the following steps:
    [here](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 2. Run the installer as administrator and follow the steps;
 3. Add the directory of the PostgreSQL executable file "psql.exe" to the Path as you did for terraform above. In my
-   case, the directory to add is "C:\Program Files\PostgreSQL\14\bin", but it could be different in your machine. Bear in
-   mind that the directory should contain a file with name "psql.exe".
+   case, the directory to add is "C:\Program Files\PostgreSQL\14\bin", but it could be different in your machine. Bear
+   in mind that the directory should contain a file with name "psql.exe".
 4. Verify the PostgreSQL installation by opening a new Git Bash terminal and running `psql --version` from the new
    terminal. The command should print the PostgreSQL version installed into your machine.
 
