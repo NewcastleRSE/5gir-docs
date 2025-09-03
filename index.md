@@ -49,6 +49,8 @@ From now on you can activate this conda environment with just:
 conda activate "$name_conda_env"
 ```
 
+
+
 ## Get DATA via PostgreSQL queries
 
 You can export the data from the data warehouse via PostgreSQL queries from the command line of your PC.
