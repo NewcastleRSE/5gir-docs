@@ -67,12 +67,12 @@ You can get and export the data from the data warehouse via PostgreSQL queries o
 
 You can get and export the data from the data warehouse via PostgreSQL queries from the command line.
 
-### Log in to the 5GIR Database
+#### Log in to the 5GIR Database
 
 To PostgreSQL queries, you need to log in to the 5GIR database with either the bash or CMD code below
 
 
-#### Log in with Bash
+##### Log in with Bash
 
 1. Open the bash terminal on Linux and MACs, or Git bash on Windows, and run the following bash code.
 
@@ -104,7 +104,7 @@ To PostgreSQL queries, you need to log in to the 5GIR database with either the b
 
 5. Lastly, type the password of your user and press enter.
 
-#### Log in with Windows CMD
+##### Log in with Windows CMD
 
 1. Open the Command Prompt on Windows, and run the following CMD code.
 
@@ -135,10 +135,10 @@ To PostgreSQL queries, you need to log in to the 5GIR database with either the b
 
 5. Lastly, type the password of your user and press enter.
 
-### Run SQL Query
+#### Run SQL Query
 
 Once you logged in to the data warehouse database, you run the same SQL queries, regardless of your terminal (Bash or
-CMD) and Operating System (OS; Linux, Mac or Windows). 
+CMD) and Operating System (OS; Linux, Mac or Windows).
 
 
 
