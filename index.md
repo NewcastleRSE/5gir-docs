@@ -59,15 +59,18 @@ conda activate %name_conda_env%
 ```
 
 
+## Get Data
 
+You can get and export the data from the data warehouse via PostgreSQL queries or python code.
 
-## Get DATA via PostgreSQL queries
+### Get DATA via PostgreSQL queries
 
-You can export the data from the data warehouse via PostgreSQL queries from the command line of your PC.
+You can get and export the data from the data warehouse via PostgreSQL queries from the command line.
 
 ### Log in to the 5GIR Database
 
-You can log in to the 5GIR database with either CMD or bash code
+To PostgreSQL queries, you need to log in to the 5GIR database with either the bash or CMD code below
+
 
 #### Log in with Bash
 
