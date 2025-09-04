@@ -176,3 +176,10 @@ select * from measurement;
 ```
 
 
+### Get DATA via Python
+
+TODO
+
+### Get DATA via R
+
+TODO
