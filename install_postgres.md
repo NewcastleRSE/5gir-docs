@@ -13,7 +13,7 @@ Visit [here](https://www.postgresql.org/download/linux/ubuntu/) for more.
 
 Install PostgreSQL on Windows with the following steps:
 
-1. Download the PostgreSQL 14 installer for Windows from
+1. Download the PostgreSQL 14 installer for Windows by clicking
    [here](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 2. Run the installer as administrator and follow the steps;
 3. Add the directory containing the PostgreSQL executable file `psql.exe` to the Path environment variable. In my case,
