@@ -32,6 +32,7 @@ conda deactivate
 
 From now on, you can activate this conda environment with just:
 ```bash
+name_conda_env=fgir
 conda activate "$name_conda_env"
 ```
 
@@ -39,7 +40,7 @@ conda activate "$name_conda_env"
 
 Run the below to create a conda environment `fgir` on a Windows computer.
 ```CMD
-set "name_conda_env=fgir_test2"
+set "name_conda_env=fgir"
 
 conda create -n %name_conda_env% python=3.12 -y
 conda activate %name_conda_env%
@@ -53,7 +54,7 @@ conda deactivate
 
 From now on, you can activate this conda environment with just:
 ```CMD
-set "name_conda_env=fgir_test2"
+set "name_conda_env=fgir"
 conda activate %name_conda_env%
 
 ```
