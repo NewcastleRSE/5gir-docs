@@ -161,6 +161,16 @@ select * from measurementtype;
 select * from measurement;
 ```
 
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0
+```
+
+
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 and time >= '2025-09-08 00:00:00.000' and time < '2025-09-15 00:00:00.000' order by time;
+```
+
+
 
 ```postgresql
 \COPY study TO 'study.csv' DELIMITER ',' CSV HEADER
