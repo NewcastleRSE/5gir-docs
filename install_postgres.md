@@ -5,9 +5,9 @@
 
 Install PostgreSQL on Ubuntu with:
 ```bash
-sudo apt-get install postgresql-14 -y
+sudo apt -y install postgresql-14
 ```
-Visit [here](https://www.postgresql.org/download/linux/ubuntu/) for more.
+Visit [here](https://www.postgresql.org/download/linux/ubuntu) for more.
 
 ## On Windows
 
