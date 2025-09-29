@@ -34,5 +34,5 @@ Install PostgreSQL on Windows with the following steps:
    If the installation were properly installed, the command should print the PostgreSQL version installed into your
    machine.
 
-### On Mac
+## On Mac
 TODO

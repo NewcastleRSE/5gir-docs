@@ -31,7 +31,7 @@ source "$HOME"/.bashrc
 ```
 
 
-### On Windows
+## On Windows
 
 Download and Install Anaconda on Windows with the following CMD code:
 
@@ -65,5 +65,5 @@ conda deactivate
 
 ```
 
-### On Mac
+## On Mac
 TODO
