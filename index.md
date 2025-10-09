@@ -57,6 +57,15 @@ select * from measurement;
 ```
 
 ```postgresql
+SELECT column_name,data_type 
+FROM information_schema.columns 
+WHERE table_catalog = 'fgir_three' 
+AND table_schema = 'public'
+AND table_name = 'measurement';
+```
+
+
+```postgresql
 select * from measurement where study = 0 and measurementgroup = 0
 ```
 
