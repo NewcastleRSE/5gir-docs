@@ -16,6 +16,11 @@ To install:
 To run the python package Data Wherehouse Client, you need to create a conda environment. To create it, follow the
 instructions in [here](create_conda_env.md).
 
+## Log in to the 5GIR Database
+
+You need to log in to the 5GIR database with either Bash, CMD or Python code to export data from the 5GIR data
+warehouse. For instructions on how to log in, click [here](login.md).
+
 ## Get Data
 
 You can get and export the data from the data warehouse via PostgreSQL queries or python code.
@@ -24,73 +29,7 @@ You can get and export the data from the data warehouse via PostgreSQL queries o
 
 You can get and export the data from the data warehouse via PostgreSQL queries from the command line.
 
-#### Log in to the 5GIR Database
 
-To PostgreSQL queries, you need to log in to the 5GIR database with either the bash or CMD code below
-
-
-##### Log in with Bash
-
-1. Open the bash terminal on Linux and MACs, or Git bash on Windows, and run the following bash code.
-
-2. If you are on Git Bash on Windows, you have admin permissions, and you have added the Postgres directory containing
-   the file `psql.exe` to the environment variable `PATH`, then you can skip this step and move to step 3. Otherwise,
-   you need to locate the directory and add it to `PATH` every time you open a new Git bash window before running the
-   command `psql`. An example of a Postgres directory is "C:\Program Files\PostgreSQL\14\bin" which must contain the
-   file "psql.exe". If this is the case for you, you can add it to `PATH` with:
-   ```bash
-   PATH="$PATH":/c/Program\ Files/PostgreSQL/14/bin
-   ```
-   Note that you need to replace "C:" with "/c", replace all "\" with "/", and add a "\" before each space character if
-   the directory full path has any spaces, like in the example above. If the directory is different in your case, adjust
-   the directory accordingly.
-
-3. Define the database name, host name, server port and username with the code below by replacing database_name,
-   host_domain, host_port and user_name with the database name, host name, server port and username, respectively.
-   ```bash
-   dbname=database_name
-   host=host_domain
-   port=host_port
-   username=user_name
-   ```
-
-4. Run the following code in the same bash shell where you ran the previous code above.
-   ```bash
-   psql --dbname="$dbname" --host="$host" --port="$port" --username="$username" --password
-   ```
-
-5. Lastly, type the password of your user and press enter.
-
-##### Log in with Windows CMD
-
-1. Open the Command Prompt on Windows, and run the following CMD code.
-
-2. If you have admin permissions, and you have added the Postgres directory containing the file `psql.exe` to the Path
-   environment variable, then you can skip this step and move to step 3. Otherwise, you need to locate the directory and
-   add it to `PATH` every time you open a new Git bash window before running the command `psql`. An example of a
-   Postgres directory is `C:\Program Files\PostgreSQL\14\bin` which must contain the file "psql.exe". If this is the
-   case for you, you can add it to `PATH` with:
-   ```CMD
-   set "PATH=%PATH%;C:\Program Files\PostgreSQL\14\bin;"
-   ```
-   If the directory is different in your case, adjust the directory accordingly.
-
-3. Define the database name, host name, server port and username with the code below by replacing database_name,
-   host_domain, host_port and user_name with the database name, host name, server port and username, respectively.
-
-   ```CMD
-   set "dbname=database_name"
-   set "host=host_domain"
-   set "port=host_port"
-   set "username=user_name"
-   ```
-
-4. Run the following code in the same command prompt window where you ran the previous code above.
-   ```CMD
-   psql --dbname=%dbname% --host=%host% --port=%port% --username=%username% --password
-   ```
-
-5. Lastly, type the password of your user and press enter.
 
 #### Run SQL Query
 
