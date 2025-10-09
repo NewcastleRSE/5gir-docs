@@ -50,11 +50,11 @@ set "filename_installer_remote=%dirname_installer_remote%/%filename_installer%"
 
 set "cwd=%cd%"
 
-cd %dirname_installer_local%
+cd /d %dirname_installer_local%
 
 curl -O %filename_installer_remote%
 
-cd %cwd%
+cd /d %cwd%
 
 start /wait "" %filename_installer_local% /InstallationType=JustMe /AddToPath=0 /RegisterPython=0 /S /D=%dirname_installation%
 
