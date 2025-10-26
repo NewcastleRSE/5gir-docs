@@ -90,6 +90,10 @@ select * from measurement;
 ```
 
 ```postgresql
+select count(*) from measurement;
+```
+
+```postgresql
 SELECT column_name,data_type 
 FROM information_schema.columns 
 WHERE table_catalog = 'fgir_three' 
@@ -99,14 +103,29 @@ AND table_name = 'measurement';
 
 
 ```postgresql
-select * from measurement where study = 0 and measurementgroup = 0
+select * from measurement where study = 0 and measurementgroup = 0;
+```
+
+
+
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 and time >= '2025-10-26 00:00:00.000' and time < '2025-10-26 00:05:00.000' order by groupinstance, id;
 ```
 
 
 ```postgresql
-select * from measurement where study = 0 and measurementgroup = 0 and time >= '2025-09-08 00:00:00.000' and time < '2025-09-15 00:00:00.000' order by time;
+select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
+from measurement as m full join textvalue as t on m.id = t.measurement
+where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000'
+order by m.groupinstance, m.id;
 ```
 
+```postgresql
+select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
+from (select * from measurement as m where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000') as m
+left join textvalue as t on m.id = t.measurement
+order by m.groupinstance, m.id;
+```
 
 
 ```postgresql
