@@ -25,20 +25,53 @@ warehouse. For instructions on how to log in, click [here](login.md).
 
 You can get and export the data from the data warehouse via PostgreSQL queries or python code.
 
-### Get DATA via PostgreSQL queries
+### Via PostgreSQL queries
 
-You can get and export the data from the data warehouse via PostgreSQL queries from the command line.
-
-
-
-#### Run SQL Query
-
-Once you logged in to the data warehouse database, you run the same SQL queries, regardless of your terminal (Bash or
-CMD) and Operating System (OS; Linux, Mac or Windows).
+Once you logged in to the data warehouse database, you can get and export the data from the data warehouse via
+PostgreSQL queries from the command line. You run the same SQL queries, regardless of your terminal (Bash or CMD) and
+Operating System (OS; Linux, Mac or Windows).
 
 
+#### Run Local Commands
+When you are connected to the database, you can run commands of your local (Bash or CMD) terminal by using the below
+format and replacing `<command>` with the command that you want to run. 
+```postgresql
+\! <command>
+```
+##### Bash Commands
+For example, if you are connected to the database by a bash terminal, you can get the current working directory with the
+bash command `pwd` with this syntax:
+```postgresql
+\! pwd
+```
+You can list the files and subdirectories of your current working directory with command `ls` by using the below format:
+```postgresql
+\! ls
+```
+You can change your working directory with command `cd` by using the below format and replacing `</path/to/directory>`
+with any other directory path in your local PC.
+```postgresql
+\! cd </path/to/directory>
+```
+##### CMD Commands
+If you connected to the database via Windows Command Prompt (CMD), you can run the below to get your current working
+directory 
+```postgresql
+\! echo %cd%
+```
+You can list the files and the subdirectories in your current directory with the CMD command `dir` as it follows:
+```postgresql
+\! dir
+```
+You can also change your current directory with command `cd` in the following way by replacing `<C:\path\to\directory>`
+with the destination directory path in your local PC.
+```postgresql
+\! cd /d <C:\path\to\directory>
+```
 
 
+#### Run some PostgreSQL queries
+View all table names in the DW with: 
 ```postgresql
 \dt
 ```
@@ -57,6 +90,10 @@ select * from measurement;
 ```
 
 ```postgresql
+select count(*) from measurement;
+```
+
+```postgresql
 SELECT column_name,data_type 
 FROM information_schema.columns 
 WHERE table_catalog = 'fgir_three' 
@@ -66,14 +103,29 @@ AND table_name = 'measurement';
 
 
 ```postgresql
-select * from measurement where study = 0 and measurementgroup = 0
+select * from measurement where study = 0 and measurementgroup = 0;
+```
+
+
+
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 and time >= '2025-10-26 00:00:00.000' and time < '2025-10-26 00:05:00.000' order by groupinstance, id;
 ```
 
 
 ```postgresql
-select * from measurement where study = 0 and measurementgroup = 0 and time >= '2025-09-08 00:00:00.000' and time < '2025-09-15 00:00:00.000' order by time;
+select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
+from measurement as m full join textvalue as t on m.id = t.measurement
+where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000'
+order by m.groupinstance, m.id;
 ```
 
+```postgresql
+select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
+from (select * from measurement as m where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000') as m
+left join textvalue as t on m.id = t.measurement
+order by m.groupinstance, m.id;
+```
 
 
 ```postgresql
