@@ -150,6 +150,9 @@ Display all users and their attributes with:
 \du
 ```
 
+select * from current_user;
+
+
 ### Create New Users (Roles)
 
 To create a user `james_smith` that is valid until the end of September 2026, run the below. Note that the username
