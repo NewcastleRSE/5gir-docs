@@ -145,38 +145,68 @@ order by m.groupinstance, m.id;
 
 ## Manage Users
 
-### Create a New User (Role)
+Display all users and their attributes with:
+```postgresql
+\du
+```
+
+### Create New Users (Roles)
 
 To create a user `james_smith` that is valid until the end of September 2026, run the below. Note that the username
-should not be in quotations while the password should be in single quotations. Replace `jw8s0F4` with an appropriate
-password for `james_smith`:
+should not be in quotations while the password should be in single quotations. Also, note to that you need to replace
+`jw8s0F4` with an appropriate password for `james_smith`:
 ```postgresql
 CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2026-10-01';
 ```
+To create a user `james_smith` with no expiration date, run this:
+```postgresql
+CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4';
+```
 
-If you want to give `james_smith` read-only permission to the DW, then run the below to add `james_smith` to the user
-group `data_warehouse_read_only`:
+To create a user `james_smith` that has the ability to create and remove users and is valid until the end of September
+2026, run the following:
+```postgresql
+CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2026-10-01' CREATEROLE;
+```
+
+To create a user `james_smith` that has the ability to create and remove users and does not expire, run this:
+```postgresql
+CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' CREATEROLE;
+```
+
+
+### Give Users Permission to Manage Other Users
+
+To give the existing user `james_smith` the permission to manage other users (create and remove other users), run this:
+```postgresql
+ALTER USER james_smith WITH CREATEROLE;
+```
+
+To remove the permission to manage other users of the existing user `james_smith`, run this:
+```postgresql
+ALTER USER james_smith WITH NOCREATEROLE;
+```
+
+### Give Read and Write Permission to Users 
+
+If you want to give `james_smith` read-only permission to the DW, then add `james_smith` to the user group
+`data_warehouse_read_only` by running:
 ```postgresql
 GRANT data_warehouse_read_only TO james_smith;
 ```
 
-Instead, if you want to give `james_smith` read and write permission to the DW, then run the below to add `james_smith`
-to the user group `data_warehouse_read_write`
+If you want to give the user `james_smith` read and write permission to the DW, then add `james_smith` to the user group
+`data_warehouse_read_write` by running the below:
 ```postgresql
 GRANT data_warehouse_read_write TO james_smith;
 ```
 
-If you want to give `james_smith` the ability to create and remove users, then add `james_smith` to the
-group `pgadmin`.
+### Remove Users
+
+To remove the existing user `james_smith`, run this:
 ```postgresql
-GRANT pgadmin TO james_smith;
+DROP ROLE james_smith;
 ```
-
-```postgresql
-CREATE ROLE user_admin WITH NOLOGIN CREATEROLE;
-```
-
-
 
 
 
