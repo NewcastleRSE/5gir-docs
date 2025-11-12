@@ -143,6 +143,73 @@ order by m.groupinstance, m.id;
 ```
 
 
+## Manage Users
+
+Display all users and their attributes with:
+```postgresql
+\du
+```
+
+### Create New Users (Roles)
+
+To create a user `james_smith` that is valid until the end of September 2026, run the below. Note that the username
+should not be in quotations while the password should be in single quotations. Also, note to that you need to replace
+`jw8s0F4` with an appropriate password for `james_smith`:
+```postgresql
+CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2026-10-01';
+```
+To create a user `james_smith` with no expiration date, run this:
+```postgresql
+CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4';
+```
+
+To create a user `james_smith` that has the ability to create and remove users and is valid until the end of September
+2026, run the following:
+```postgresql
+CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2026-10-01' CREATEROLE;
+```
+
+To create a user `james_smith` that has the ability to create and remove users and does not expire, run this:
+```postgresql
+CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' CREATEROLE;
+```
+
+
+### Give Users Permission to Manage Other Users
+
+To give the existing user `james_smith` the permission to manage other users (create and remove other users), run this:
+```postgresql
+ALTER USER james_smith WITH CREATEROLE;
+```
+
+To remove the permission to manage other users of the existing user `james_smith`, run this:
+```postgresql
+ALTER USER james_smith WITH NOCREATEROLE;
+```
+
+### Give Read and Write Permission to Users 
+
+If you want to give `james_smith` read-only permission to the DW, then add `james_smith` to the user group
+`data_warehouse_read_only` by running:
+```postgresql
+GRANT data_warehouse_read_only TO james_smith;
+```
+
+If you want to give the user `james_smith` read and write permission to the DW, then add `james_smith` to the user group
+`data_warehouse_read_write` by running the below:
+```postgresql
+GRANT data_warehouse_read_write TO james_smith;
+```
+
+### Remove Users
+
+To remove the existing user `james_smith`, run this:
+```postgresql
+DROP ROLE james_smith;
+```
+
+
+
 ### Get DATA via Python
 
 TODO
