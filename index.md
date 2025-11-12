@@ -163,15 +163,32 @@ To create a user `james_smith` with no expiration date, run this:
 CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4';
 ```
 
-To create a user `james_smith` that has the ability to create and remove users and is valid until the end of September
-2026, run the following:
+To create a user `james_smith` that can manage other users (create and remove users) and is valid until the end of
+September 2026, run the following:
 ```postgresql
 CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2026-10-01' CREATEROLE;
 ```
 
-To create a user `james_smith` that has the ability to create and remove users and does not expire, run this:
+To create a user `james_smith` that can manage other users and does not expire, run this:
 ```postgresql
 CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' CREATEROLE;
+```
+
+### Change User Passwords
+
+Change the password of the existing user `james_smith` with:
+
+```postgresql
+ALTER USER james_smith WITH PASSWORD 'hr9k7zg';
+```
+
+
+### Change the Expiration Date of Users
+
+Change the date when the existing user `james_smith` expires, run this:
+
+```postgresql
+ALTER USER james_smith WITH VALID UNTIL '2030-10-01';
 ```
 
 
