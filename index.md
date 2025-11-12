@@ -143,6 +143,43 @@ order by m.groupinstance, m.id;
 ```
 
 
+## Manage Users
+
+### Create a New User (Role)
+
+To create a user `james_smith` that is valid until the end of September 2026, run the below. Note that the username
+should not be in quotations while the password should be in single quotations. Replace `jw8s0F4` with an appropriate
+password for `james_smith`:
+```postgresql
+CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2026-10-01';
+```
+
+If you want to give `james_smith` read-only permission to the DW, then run the below to add `james_smith` to the user
+group `data_warehouse_read_only`:
+```postgresql
+GRANT data_warehouse_read_only TO james_smith;
+```
+
+Instead, if you want to give `james_smith` read and write permission to the DW, then run the below to add `james_smith`
+to the user group `data_warehouse_read_write`
+```postgresql
+GRANT data_warehouse_read_write TO james_smith;
+```
+
+If you want to give `james_smith` the ability to create and remove users, then add `james_smith` to the
+group `pgadmin`.
+```postgresql
+GRANT pgadmin TO james_smith;
+```
+
+```postgresql
+CREATE ROLE user_admin WITH NOLOGIN CREATEROLE;
+```
+
+
+
+
+
 ### Get DATA via Python
 
 TODO
