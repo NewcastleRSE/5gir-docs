@@ -24,10 +24,13 @@ bash "$filename_installer_local" -b -p "$dirname_installation"
 
 source "$dirname_installation"/bin/activate
 conda init --all
-conda config --set auto_activate_base false
+conda config --set auto_activate false
 conda deactivate
 
 source "$HOME"/.bashrc
+
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 ```
 
 
@@ -62,6 +65,10 @@ start /wait "" %filename_installer_local% /InstallationType=JustMe /AddToPath=0 
 conda init --all
 conda config --set auto_activate false
 conda deactivate
+
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/msys2
 
 ```
 

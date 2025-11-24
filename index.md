@@ -7,6 +7,7 @@ repository ([https://github.com/NewcastleRSE/5gir-docs](https://github.com/Newca
 ## Install Required Software
 
 To install:
+- Git, follow the instructions in [here](install_git.md).
 - Anaconda, follow the instructions in [here](install_anaconda.md).
 - PostgreSQL, follow the instructions in [here](install_postgres.md).
 

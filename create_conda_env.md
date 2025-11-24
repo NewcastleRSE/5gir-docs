@@ -3,9 +3,12 @@
 
 To run the python package Data Wherehouse Client, you need to create a conda environment.
 
+Before create the conda environment, confirm that you have `git` installed in your system, by following the steps in
+[here](install_git.md)
+
 ## On Ubuntu
 
-Run the below to create a conda environment `fgir` on an Ubuntu computer.
+Create a conda environment `fgir` on an Ubuntu computer, by running the below:
 ```bash
 name_conda_env=fgir
 
@@ -46,7 +49,6 @@ set "name_conda_env=fgir"
 conda activate %name_conda_env%
 
 ```
-
 
 ## On Mac
 TODO
