@@ -97,7 +97,7 @@ select count(*) from measurement;
 ```postgresql
 SELECT column_name,data_type 
 FROM information_schema.columns 
-WHERE table_catalog = 'fgir_three' 
+WHERE table_catalog = 'fgir' 
 AND table_schema = 'public'
 AND table_name = 'measurement';
 ```
