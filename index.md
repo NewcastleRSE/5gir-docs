@@ -7,6 +7,7 @@ repository ([https://github.com/NewcastleRSE/5gir-docs](https://github.com/Newca
 ## Install Required Software
 
 To install:
+- Git, follow the instructions in [here](install_git.md).
 - Anaconda, follow the instructions in [here](install_anaconda.md).
 - PostgreSQL, follow the instructions in [here](install_postgres.md).
 
@@ -96,7 +97,7 @@ select count(*) from measurement;
 ```postgresql
 SELECT column_name,data_type 
 FROM information_schema.columns 
-WHERE table_catalog = 'fgir_three' 
+WHERE table_catalog = 'fgir' 
 AND table_schema = 'public'
 AND table_name = 'measurement';
 ```
@@ -115,7 +116,7 @@ select * from measurement where study = 0 and measurementgroup = 0 and time >= '
 
 ```postgresql
 select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
-from measurement as m full join textvalue as t on m.id = t.measurement
+from measurement as m left join textvalue as t on m.id = t.measurement
 where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000'
 order by m.groupinstance, m.id;
 ```
@@ -149,6 +150,9 @@ Display all users and their attributes with:
 ```postgresql
 \du
 ```
+
+select * from current_user;
+
 
 ### Create New Users (Roles)
 
