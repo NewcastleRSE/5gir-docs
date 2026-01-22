@@ -72,28 +72,41 @@ with the destination directory path in your local PC.
 
 
 #### Run some PostgreSQL queries
+
 View all table names in the DW with: 
 ```postgresql
 \dt
 ```
 
-
+Preview the table study with:
 ```postgresql
 select * from study;
 ```
+You can view any of the tables in the DW, using this query, changing the table name (i.e., `measurement`,
+`measurementgroup`, `textvalue`, `sourcetype` ect.)
 
+For example, view measurement types and: 
 ```postgresql
 select * from measurementtype;
 ```
 
+And the source (sensor) types with:
 ```postgresql
-select * from measurement;
+select * from sourcetype;
 ```
 
+When you preview the table `measurement`, you better limit the number of rows in the preview, since the table
+`measurement` has millions/billions rows. Preview the table `measurement` with a maximum of 20 rows with:
+```postgresql
+SELECT * FROM measurement limit 20;
+```
+
+You can count how many rows are in table measurement with:
 ```postgresql
 select count(*) from measurement;
 ```
 
+You can show only the column names of table `measurement` with:
 ```postgresql
 SELECT column_name,data_type 
 FROM information_schema.columns 
@@ -102,131 +115,163 @@ AND table_schema = 'public'
 AND table_name = 'measurement';
 ```
 
-
+Only display a maximum of 20 rows in `measurement` of the study `0` and measurement group `0` with:
 ```postgresql
-select * from measurement where study = 0 and measurementgroup = 0;
+select * from measurement where study = 0 and measurementgroup = 0 limit 20;
 ```
 
-
-
+Only display a maximum of 20 rows in `measurement` of the study `0` and measurement group `1` with:
 ```postgresql
-select * from measurement where study = 0 and measurementgroup = 0 and time >= '2025-10-26 00:00:00.000' and time < '2025-10-26 00:05:00.000' order by groupinstance, id;
+select * from measurement where study = 0 and measurementgroup = 1 limit 20;
 ```
 
+You can also sort them by the timestamp of the recordings from older to newer (smaller to larger) with:
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 order by time limit 40;
+```
+or with:
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 order by time asc limit 40;
+```
 
+You can sort them by timestamp from newer to older with:
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 order by time desc limit 40;
+```
+
+You can also sort them by multiple columns. The order of the columns in query matters. For example, the query below
+sorts the recordings by `time` from newer to older. If two recordings have the same `time`, it sorts them by
+`groupinstance` from smaller to larger. If they have the same `time` and `groupinstance`, it sorts them by
+`measurementtype` from smaller to bigger.
+```postgresql
+select *
+from measurement
+where study = 0 and measurementgroup = 0
+order by time desc, groupinstance asc, measurementtype asc
+limit 40;
+```
+
+You can also choose to display only the recordings in a time period. The below only gets the measurements of study `0`
+and measurement group `0` that were recorded between the beginning and the end of the 1st of September 2025. The
+measurements are sorted by time, group instance and measurement type.
+```postgresql
+select *
+from measurement
+where study = 0 and measurementgroup = 0 and time >= '2025-09-01 00:00:00.000' and time < '2025-09-02 00:00:00.000'
+order by time asc, groupinstance asc, measurementtype asc
+limit 40;
+```
+
+An issue with the above queries of the table `measurement` is that they only get the measurement values that are stored
+as integers and floats. There is no value for the measurements stored as stings because the string values are stored in
+another table, the table `textvalue`. Therefore, you need to join the tables `measurement` and `textvalue`  to get all
+measurement in one single table. You can do it with the following two queries.
+
+This query is more readable, but slower:
 ```postgresql
 select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
 from measurement as m left join textvalue as t on m.id = t.measurement
-where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000'
-order by m.groupinstance, m.id;
+where m.study = 0 and m.measurementgroup = 0 and m.time >= '2025-09-01 00:00:00.000' and m.time < '2025-09-02 00:00:00.000'
+order by time asc, groupinstance asc, measurementtype asc
+limit 40;
 ```
 
+This is less readable, but faster:
 ```postgresql
 select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
-from (select * from measurement as m where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000') as m
+from (select * from measurement as m where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-09-01 00:00:00.000' and m.time < '2025-09-02 00:00:00.000') as m
 left join textvalue as t on m.id = t.measurement
-order by m.groupinstance, m.id;
+order by time asc, groupinstance asc, measurementtype asc
+limit 40;
 ```
 
+#### Export Data as CSV File
 
+
+You can export data as csv file. Note that export will fail if your user does not have write permission in the directory
+of your local machine where you are trying to write the csv file.
+
+##### Export a Table 
+You can export a whole table in the DW as csv file in your local machine with the query format: 
+```postgresql
+\COPY <TABLE_NAME> TO '<FILENAME>' DELIMITER ',' CSV HEADER
+```
+For example:
 ```postgresql
 \COPY study TO 'study.csv' DELIMITER ',' CSV HEADER
 ```
+or
+```postgresql
+\COPY measurement TO 'measurement.csv' DELIMITER ',' CSV HEADER
+```
+However, the two examples above create files `study.csv` and `measurement.csv` in your current working directory of your
+local machine. Thus, if you do not have write permission in your current working directory the above two queries will
+fail. If you don't know what is your current directory, and you logged in to the DW from a Windows Command Prompt, then
+run the below to print your current working directory:
+```postgresql
+\! echo %cd%
+```
+If you looged in from Linux or Mac terminal, then run the below to print your current working directory:
+```postgresql
+\! pwd
+```
+
+If you want to save the file to another directory, you can either change the working directory or define the full path
+of the csv file in the export query.
+
+To change working directory, you need to:
+1. log out from the DW with:
+   ```postgresql
+   \! q
+   ```
+2. Change directory with:
+   ```
+   cd <path_to_directory>
+   ```
+   replacing `<path_to_directory>` with the path of the directory where you want to write the csv file.
+3. log in to the DW again with your credentials.
+4. Run the export queries like:
+   ```postgresql
+   \COPY study TO 'study.csv' DELIMITER ',' CSV HEADER
+   ```
+
+Alternatively, if you are in the wrong working directory, you can just write the full path to the csv file in the query,
+without changing working directory. For example, run the below on Windows Command Prompt replacing username with your
+username.
+```postgresql
+\COPY study TO 'C:\Users\<username>\dw\study.csv' DELIMITER ',' CSV HEADER
+```
+If your username is `james`, then the query becomes:
+```postgresql
+\COPY study TO 'C:\Users\james\dw\study.csv' DELIMITER ',' CSV HEADER
+```
+Before running the above, make sure that directory `C:\Users\james\dw` already exists.
+
+Run the below on Linux or Mac Terminal replacing username with your username.
+```postgresql
+\COPY study TO '/home/<username>/dw/study.csv' DELIMITER ',' CSV HEADER
+```
+If your username is `james`, then the query becomes:
+```postgresql
+\COPY study TO '/home/james/dw/study.csv' DELIMITER ',' CSV HEADER
+```
+Before running the above, make sure that directory `/home/james/dw` already exists.
 
 
+##### Export a Query
+
+you can export a query as csv file with the query format:
+```postgresql
+\COPY (<QUERY>) TO '<FILENAME>' DELIMITER ',' CSV HEADER
+```
+replacing `<QUERY>` and `<FILENAME>` with the query that you want to export and csv file name, respectively. For
+example:
 ```postgresql
 \COPY (select * from measurement where study = 0 and measurementgroup = 0) TO 'wet150.csv' DELIMITER ',' CSV HEADER
 ```
-
-
+or
 ```postgresql
 \COPY (select * from measurement where study = 0 and measurementgroup = 1) TO 'apogee.csv' DELIMITER ',' CSV HEADER
-```
-
-
-## Manage Users
-
-Display all users and their attributes with:
-```postgresql
-\du
-```
-
-select * from current_user;
-
-
-### Create New Users (Roles)
-
-To create a user `james_smith` that is valid until the end of September 2026, run the below. Note that the username
-should not be in quotations while the password should be in single quotations. Also, note to that you need to replace
-`jw8s0F4` with an appropriate password for `james_smith`:
-```postgresql
-CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2026-10-01';
-```
-To create a user `james_smith` with no expiration date, run this:
-```postgresql
-CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4';
-```
-
-To create a user `james_smith` that can manage other users (create and remove users) and is valid until the end of
-September 2026, run the following:
-```postgresql
-CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' VALID UNTIL '2026-10-01' CREATEROLE;
-```
-
-To create a user `james_smith` that can manage other users and does not expire, run this:
-```postgresql
-CREATE ROLE james_smith WITH LOGIN PASSWORD 'jw8s0F4' CREATEROLE;
-```
-
-### Change User Passwords
-
-Change the password of the existing user `james_smith` with:
-
-```postgresql
-ALTER USER james_smith WITH PASSWORD 'hr9k7zg';
-```
-
-
-### Change the Expiration Date of Users
-
-Change the date when the existing user `james_smith` expires, run this:
-
-```postgresql
-ALTER USER james_smith WITH VALID UNTIL '2030-10-01';
-```
-
-
-### Give Users Permission to Manage Other Users
-
-To give the existing user `james_smith` the permission to manage other users (create and remove other users), run this:
-```postgresql
-ALTER USER james_smith WITH CREATEROLE;
-```
-
-To remove the permission to manage other users of the existing user `james_smith`, run this:
-```postgresql
-ALTER USER james_smith WITH NOCREATEROLE;
-```
-
-### Give Read and Write Permission to Users 
-
-If you want to give `james_smith` read-only permission to the DW, then add `james_smith` to the user group
-`data_warehouse_read_only` by running:
-```postgresql
-GRANT data_warehouse_read_only TO james_smith;
-```
-
-If you want to give the user `james_smith` read and write permission to the DW, then add `james_smith` to the user group
-`data_warehouse_read_write` by running the below:
-```postgresql
-GRANT data_warehouse_read_write TO james_smith;
-```
-
-### Remove Users
-
-To remove the existing user `james_smith`, run this:
-```postgresql
-DROP ROLE james_smith;
 ```
 
 
@@ -238,3 +283,10 @@ TODO
 ### Get DATA via R
 
 TODO
+
+
+## Manage Users
+
+Administrators can manage other users. They can create new users, delete any other users, change the passwords of any
+other users, change any other users' permission to the data. Administrators can also make some users administrators. If
+you are an administrator, see the instructions on how to manage users in [here](manage_users.md).
