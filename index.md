@@ -72,28 +72,41 @@ with the destination directory path in your local PC.
 
 
 #### Run some PostgreSQL queries
+
 View all table names in the DW with: 
 ```postgresql
 \dt
 ```
 
-
+Preview the table study with:
 ```postgresql
 select * from study;
 ```
+You can view any of the tables in the DW, using this query, changing the table name (i.e., `measurement`,
+`measurementgroup`, `textvalue`, `sourcetype` ect.)
 
+For example, view measurement types and: 
 ```postgresql
 select * from measurementtype;
 ```
 
+And the source (sensor) types with:
 ```postgresql
-select * from measurement;
+select * from sourcetype;
 ```
 
+When you preview the table `measurement`, you better limit the number of rows in the preview, since the table
+`measurement` has millions/billions rows. Preview the table `measurement` with a maximum of 20 rows with:
+```postgresql
+SELECT * FROM measurement limit 20;
+```
+
+You can count how many rows are in table measurement with:
 ```postgresql
 select count(*) from measurement;
 ```
 
+You can show only the column names of table `measurement` with:
 ```postgresql
 SELECT column_name,data_type 
 FROM information_schema.columns 
@@ -102,30 +115,74 @@ AND table_schema = 'public'
 AND table_name = 'measurement';
 ```
 
-
+Only display a maximum of 20 rows in `measurement` of the study `0` and measurement group `0` with:
 ```postgresql
-select * from measurement where study = 0 and measurementgroup = 0;
+select * from measurement where study = 0 and measurementgroup = 0 limit 20;
 ```
 
-
-
+Only display a maximum of 20 rows in `measurement` of the study `0` and measurement group `1` with:
 ```postgresql
-select * from measurement where study = 0 and measurementgroup = 0 and time >= '2025-10-26 00:00:00.000' and time < '2025-10-26 00:05:00.000' order by groupinstance, id;
+select * from measurement where study = 0 and measurementgroup = 1 limit 20;
 ```
 
+You can also sort them by the timestamp of the recordings from older to newer (smaller to larger) with:
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 order by time limit 40;
+```
+or with:
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 order by time asc limit 40;
+```
 
+You can sort them by timestamp from newer to older with:
+```postgresql
+select * from measurement where study = 0 and measurementgroup = 0 order by time desc limit 40;
+```
+
+You can also sort them by multiple columns. The order of the columns in query matters. For example, the query below
+sorts the recordings by `time` from newer to older. If two recordings have the same `time`, it sorts them by
+`groupinstance` from smaller to larger. If they have the same `time` and `groupinstance`, it sorts them by
+`measurementtype` from smaller to bigger.
+```postgresql
+select *
+from measurement
+where study = 0 and measurementgroup = 0
+order by time desc, groupinstance asc, measurementtype asc
+limit 40;
+```
+
+You can also choose to display only the recordings in a time period. The below only gets the measurements of study `0`
+and measurement group `0` that were recorded between the beginning and the end of the 1st of September 2025. The
+measurements are sorted by time, group instance and measurement type.
+```postgresql
+select *
+from measurement
+where study = 0 and measurementgroup = 0 and time >= '2025-09-01 00:00:00.000' and time < '2025-09-02 00:00:00.000'
+order by time asc, groupinstance asc, measurementtype asc
+limit 40;
+```
+
+An issue with the above queries of the table `measurement` is that they only get the measurement values that are stored
+as integers and floats. There is no value for the measurements stored as stings because the string values are stored in
+another table, the table `textvalue`. Therefore, you need to join the tables `measurement` and `textvalue`  to get all
+measurement in one single table. You can do it with the following two queries.
+
+This query is more readable, but slower:
 ```postgresql
 select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
 from measurement as m left join textvalue as t on m.id = t.measurement
-where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000'
-order by m.groupinstance, m.id;
+where m.study = 0 and m.measurementgroup = 0 and m.time >= '2025-09-01 00:00:00.000' and m.time < '2025-09-02 00:00:00.000'
+order by time asc, groupinstance asc, measurementtype asc
+limit 40;
 ```
 
+This is less readable, but faster:
 ```postgresql
 select m.id, m.groupinstance, m.measurementtype, m.participant, m.study, m.source, m.valtype, t.textval, m.valinteger, m.valreal, m.time, m.measurementgroup, m.trial
-from (select * from measurement as m where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-10-26 00:00:00.000' and m.time < '2025-10-26 00:10:00.000') as m
+from (select * from measurement as m where m.study = 0 and m.measurementgroup = 1 and m.time >= '2025-09-01 00:00:00.000' and m.time < '2025-09-02 00:00:00.000') as m
 left join textvalue as t on m.id = t.measurement
-order by m.groupinstance, m.id;
+order by time asc, groupinstance asc, measurementtype asc
+limit 40;
 ```
 
 
