@@ -155,5 +155,5 @@ TODO
 ## Manage Users
 
 Administrators can manage other users. They can create new users, delete any other users, change the passwords of any
-other users, change any other users' permission to the data. Administrators can also make some users administrators. See
-the instructions on how to manage users in [here](manage_users.md).
+other users, change any other users' permission to the data. Administrators can also make some users administrators. If
+you are an administrator, see the instructions on how to manage users in [here](manage_users.md).
