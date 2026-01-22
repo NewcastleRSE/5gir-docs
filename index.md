@@ -185,20 +185,96 @@ order by time asc, groupinstance asc, measurementtype asc
 limit 40;
 ```
 
+#### Export Data as CSV File
 
+
+You can export data as csv file. Note that export will fail if your user does not have write permission in the directory
+of your local machine where you are trying to write the csv file.
+
+##### Export a Table 
+You can export a whole table in the DW as csv file in your local machine with the query format: 
+```postgresql
+\COPY <TABLE_NAME> TO '<FILENAME>' DELIMITER ',' CSV HEADER
+```
+For example:
 ```postgresql
 \COPY study TO 'study.csv' DELIMITER ',' CSV HEADER
 ```
+or
+```postgresql
+\COPY measurement TO 'measurement.csv' DELIMITER ',' CSV HEADER
+```
+However, the two examples above create files `study.csv` and `measurement.csv` in your current working directory of your
+local machine. Thus, if you do not have write permission in your current working directory the above two queries will
+fail. If you don't know what is your current directory, and you logged in to the DW from a Windows Command Prompt, then
+run the below to print your current working directory:
+```postgresql
+\! echo %cd%
+```
+If you looged in from Linux or Mac terminal, then run the below to print your current working directory:
+```postgresql
+\! pwd
+```
+
+If you want to save the file to another directory, you can either change the working directory or define the full path
+of the csv file in the export query.
+
+To change working directory, you need to:
+1. log out from the DW with:
+   ```postgresql
+   \! q
+   ```
+2. Change directory with:
+   ```
+   cd <path_to_directory>
+   ```
+   replacing `<path_to_directory>` with the path of the directory where you want to write the csv file.
+3. log in to the DW again with your credentials.
+4. Run the export queries like:
+   ```postgresql
+   \COPY study TO 'study.csv' DELIMITER ',' CSV HEADER
+   ```
+
+Alternatively, if you are in the wrong working directory, you can just write the full path to the csv file in the query,
+without changing working directory. For example, run the below on Windows Command Prompt replacing username with your
+username.
+```postgresql
+\COPY study TO 'C:\Users\<username>\dw\study.csv' DELIMITER ',' CSV HEADER
+```
+If your username is `james`, then the query becomes:
+```postgresql
+\COPY study TO 'C:\Users\james\dw\study.csv' DELIMITER ',' CSV HEADER
+```
+Before running the above, make sure that directory `C:\Users\james\dw` already exists.
+
+Run the below on Linux or Mac Terminal replacing username with your username.
+```postgresql
+\COPY study TO '/home/<username>/dw/study.csv' DELIMITER ',' CSV HEADER
+```
+If your username is `james`, then the query becomes:
+```postgresql
+\COPY study TO '/home/james/dw/study.csv' DELIMITER ',' CSV HEADER
+```
+Before running the above, make sure that directory `/home/james/dw` already exists.
 
 
+##### Export a Query
+
+you can export a query as csv file with the query format:
+```postgresql
+\COPY (<QUERY>) TO '<FILENAME>' DELIMITER ',' CSV HEADER
+```
+replacing `<QUERY>` and `<FILENAME>` with the query that you want to export and csv file name, respectively. For
+example:
 ```postgresql
 \COPY (select * from measurement where study = 0 and measurementgroup = 0) TO 'wet150.csv' DELIMITER ',' CSV HEADER
 ```
-
-
+or
 ```postgresql
 \COPY (select * from measurement where study = 0 and measurementgroup = 1) TO 'apogee.csv' DELIMITER ',' CSV HEADER
 ```
+
+
 
 ### Get DATA via Python
 
