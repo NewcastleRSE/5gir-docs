@@ -1,6 +1,6 @@
 # 5GIR Dara Warehouse Export Guide
 
-This guide ([https://newcastlerse.github.io/5gir-docs]([https://newcastlerse.github.io/5gir-docs)) is in our GitHub
+This source to this guide ([https://newcastlerse.github.io/5gir-docs]([https://newcastlerse.github.io/5gir-docs)) is in the RSE Team GitHub
 repository ([https://github.com/NewcastleRSE/5gir-docs](https://github.com/NewcastleRSE/5gir-docs)).
 
 
@@ -14,22 +14,22 @@ To install:
 
 ## Create Conda Environment
 
-To run the python package Data Wherehouse Client, you need to create a conda environment. To create it, follow the
+To run the Python package Data Warehouse Client, you need to create a conda environment. To create it, follow the
 instructions in [here](create_conda_env.md).
 
 ## Log in to the 5GIR Database
 
-You need to log in to the 5GIR database with either Bash, CMD or Python code to export data from the 5GIR data
-warehouse. For instructions on how to log in, click [here](login.md).
+You need to log in to the 5GIR database with either Bash, CMD or Python code to export data from the 5GIR Data
+Warehouse. For instructions on how to log in, click [here](login.md).
 
 ## Get Data
 
-You can get and export the data from the data warehouse via PostgreSQL queries or python code.
+You can get and export the data from the Data Warehouse via PostgreSQL queries or Python code.
 
 ### Via PostgreSQL queries
 
-Once you logged in to the data warehouse database, you can get and export the data from the data warehouse via
-PostgreSQL queries from the command line. You run the same SQL queries, regardless of your terminal (Bash or CMD) and
+Once logged in to the Data Warehouse Postgres database server, you can get and export the data from the Data Warehouse via
+SQL queries from the command line. You run the same SQL queries, regardless of your terminal (Bash or CMD) and
 Operating System (OS; Linux, Mac or Windows).
 
 
@@ -95,8 +95,8 @@ And the source (sensor) types with:
 select * from sourcetype;
 ```
 
-When you preview the table `measurement`, you better limit the number of rows in the preview, since the table
-`measurement` has millions/billions rows. Preview the table `measurement` with a maximum of 20 rows with:
+When previewing the table `measurement`, you should limit the number of rows in the preview as the table
+`measurement` has millions of rows. Preview the table `measurement` with a maximum of 20 rows with:
 ```postgresql
 SELECT * FROM measurement limit 20;
 ```
