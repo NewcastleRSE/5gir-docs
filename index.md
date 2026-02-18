@@ -1,6 +1,6 @@
 # 5GIR Dara Warehouse Export Guide
 
-This source to this guide ([https://newcastlerse.github.io/5gir-docs]([https://newcastlerse.github.io/5gir-docs)) is in the RSE Team GitHub
+This source to this guide ([https://newcastlerse.github.io/5gir-docs](https://newcastlerse.github.io/5gir-docs)) is in the RSE Team GitHub
 repository ([https://github.com/NewcastleRSE/5gir-docs](https://github.com/NewcastleRSE/5gir-docs)).
 
 
