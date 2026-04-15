@@ -9,6 +9,7 @@ This data model uses the [CSVW](https://csvw.org/) standard. All keywords (e.g. 
 ### Notes
 - Dates and times generally do not comform to ISO8601 format and require a custom datatype to interpret the field
 
+
 ### Collar Hourly Data <a name="collar-hourly-data"></a>
 Sheet name: "Collar hourly data"
 
@@ -21,6 +22,17 @@ Sheet name: "Collar hourly data"
 | EatingTimeInSeconds | integer | s |
 | PantingTimeInSeconds | integer | s |
 
+#### Custom data types
+
+**Date**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "dd/MM/yyyy"
+}
+```
+
+
 ### Daily Data Milk Weight Collar <a name="daily-data-milk-weight-collar"></a>
 Sheet name: "Daily data_milk weight collar"
 
@@ -31,7 +43,7 @@ Sheet name: "Daily data_milk weight collar"
 | Date | custom datatype | n/a |
 | Days_in_Milk | integer | d |
 | Age_Days | integer | d |
-| Lactation_Num | integer | |
+| Lactation_Num | integer | n/a |
 | Yield(gr) | integer | g |
 | Conductivity | number | [??] |
 | Weight(gr) | integer | g |
@@ -39,6 +51,17 @@ Sheet name: "Daily data_milk weight collar"
 | RuminationTime(seconds) | integer | s |
 | EatingTime(seconds) | integer | s |
 | Panting(seconds) | integer | s |
+
+#### Custom data types
+
+**Date**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "dd/MM/yyyy"
+}
+```
+
 
 ### Milk By Session <a name="milk-by-session"></a>
 Sheet name: "Milk by session"
@@ -55,6 +78,24 @@ Sheet name: "Milk by session"
 | AMT(seconds) | integer | s |
 | ProductionRate(gr/hour) | integer | g/h |
 
+#### Custom data types
+
+**Date**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "dd/MM/yyyy"
+}
+```
+
+**LatestIdentificationTime**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "d/M/yyyy H:mm"
+}
+```
+
 #### Categorical Data
 
 | Category | Value | Description |
@@ -62,6 +103,7 @@ Sheet name: "Milk by session"
 | Session | 0 | Morning milking |
 | Session | 1 | Noon milking |
 | Session | 2 | Evening milking |
+
 
 ### Body Weight By Session <a name="body-weight-by-session"></a>
 Sheet name: "Body weight by session"
@@ -73,6 +115,16 @@ Sheet name: "Body weight by session"
 | Session | integer | n/a |
 | Weight(gr) | integer | g |
 
+#### Custom data types
+
+**Date**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "dd/MM/yyyy"
+}
+```
+
 #### Categorical Data
 
 | Category | Value | Description |
@@ -81,9 +133,11 @@ Sheet name: "Body weight by session"
 | Session | 1 | Noon milking |
 | Session | 2 | Evening milking |
 
-### Leg Tag Hourly Activity & Steps <a name="leg-tag-hourly-activity-and-steps"></a>
 
+
+### Leg Tag Hourly Activity & Steps <a name="leg-tag-hourly-activity-and-steps"></a>
 Sheet name: "LegTag hourly activity & steps"
+
 | Name | Type | Units |
 | --- | --- | --- |
 | Time | custom datatype | n/a |
@@ -93,9 +147,28 @@ Sheet name: "LegTag hourly activity & steps"
 | Step(#) | integer | n/a |
 | Activity(steps/hour) | integer | h^(-1) |
 
-### Leg Tag Hourly Rest Data <a name="leg-tag-hourly-rest-data"></a>
+#### Custom data types
 
+**Time**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "d/M/yyyy H:mm"
+}
+```
+
+**Date**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "dd/MM/yyyy"
+}
+```
+
+
+### Leg Tag Hourly Rest Data <a name="leg-tag-hourly-rest-data"></a>
 Sheet name: "Leg tag hourly rest data"
+
 | Name | Type | Units |
 | --- | --- | --- |
 | AnimalId | integer | n/a |
@@ -104,9 +177,20 @@ Sheet name: "Leg tag hourly rest data"
 | RestTime(minutes) | integer | m |
 | RestBout(#) | integer | n/a |
 
-### Leg Tag Daily Data <a name="leg-tag-daily-data"></a>
+#### Custom data types
 
+**Date**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "dd/MM/yyyy"
+}
+```
+
+
+### Leg Tag Daily Data <a name="leg-tag-daily-data"></a>
 Sheet name: "Leg tag daily data"
+
 | Name | Type | Units |
 | --- | --- | --- |
 | Animal_Id | integer | n/a |
@@ -119,14 +203,35 @@ Sheet name: "Leg tag daily data"
 | RestTime(minutes) | integer | m |
 | RestBout(#) | integer | n/a |
 
-### Collar 90 Seconds Data 1 Week <a name="collar-90-seconds-data-1-week"></a>
+#### Custom data types
 
+**Date**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "dd/MM/yyyy"
+}
+```
+
+
+### Collar 90 Seconds Data 1 Week <a name="collar-90-seconds-data-1-week"></a>
 Sheet name: "Collar 90 seconds data 1 week"
+
 | Name | Type | Units |
 | --- | --- | --- |
 | AnimalId | integer | n/a |
 | datetime | custom datatype | n/a |
 | Ingestion | integer | n/a |
+
+#### Custom data types
+
+**datetime**
+```
+"datatype" : {
+    "base" : "date",
+    "format" : "dd/MM/yyyy HH:mm"
+}
+```
 
 #### Categorical Data
 
