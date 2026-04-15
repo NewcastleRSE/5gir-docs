@@ -11,6 +11,7 @@ This data model uses the [CSVW](https://csvw.org/) standard. All keywords (e.g. 
 
 ### Collar Hourly Data <a name="collar-hourly-data"></a>
 Sheet name: "Collar hourly data"
+
 | Name | Type | Units |
 | --- | --- | --- |
 | AnimalId | integer | n/a |
@@ -22,6 +23,7 @@ Sheet name: "Collar hourly data"
 
 ### Daily Data Milk Weight Collar <a name="daily-data-milk-weight-collar"></a>
 Sheet name: "Daily data_milk weight collar"
+
 | Name | Type | Units |
 | --- | --- | --- |
 | Animal_Id | integer | n/a |
@@ -40,6 +42,7 @@ Sheet name: "Daily data_milk weight collar"
 
 ### Milk By Session <a name="milk-by-session"></a>
 Sheet name: "Milk by session"
+
 | Name | Type | Units |
 | --- | --- | --- |
 | AnimalId | integer | n/a |
@@ -53,6 +56,7 @@ Sheet name: "Milk by session"
 | ProductionRate(gr/hour) | integer | g/h |
 
 #### Categorical Data
+
 | Category | Value | Description |
 | --- | --- | --- |
 | Session | 0 | Morning milking |
@@ -61,6 +65,7 @@ Sheet name: "Milk by session"
 
 ### Body Weight By Session <a name="body-weight-by-session"></a>
 Sheet name: "Body weight by session"
+
 | Name | Type | Units |
 | --- | --- | --- |
 | AnimalId | integer | n/a |
@@ -69,6 +74,7 @@ Sheet name: "Body weight by session"
 | Weight(gr) | integer | g |
 
 #### Categorical Data
+
 | Category | Value | Description |
 | --- | --- | --- |
 | Session | 0 | Morning milking |
@@ -76,6 +82,7 @@ Sheet name: "Body weight by session"
 | Session | 2 | Evening milking |
 
 ### Leg Tag Hourly Activity & Steps <a name="leg-tag-hourly-activity-and-steps"></a>
+
 Sheet name: "LegTag hourly activity & steps"
 | Name | Type | Units |
 | --- | --- | --- |
@@ -87,6 +94,7 @@ Sheet name: "LegTag hourly activity & steps"
 | Activity(steps/hour) | integer | h^(-1) |
 
 ### Leg Tag Hourly Rest Data <a name="leg-tag-hourly-rest-data"></a>
+
 Sheet name: "Leg tag hourly rest data"
 | Name | Type | Units |
 | --- | --- | --- |
@@ -97,6 +105,7 @@ Sheet name: "Leg tag hourly rest data"
 | RestBout(#) | integer | n/a |
 
 ### Leg Tag Daily Data <a name="leg-tag-daily-data"></a>
+
 Sheet name: "Leg tag daily data"
 | Name | Type | Units |
 | --- | --- | --- |
@@ -111,6 +120,7 @@ Sheet name: "Leg tag daily data"
 | RestBout(#) | integer | n/a |
 
 ### Collar 90 Seconds Data 1 Week <a name="collar-90-seconds-data-1-week"></a>
+
 Sheet name: "Collar 90 seconds data 1 week"
 | Name | Type | Units |
 | --- | --- | --- |
@@ -119,6 +129,7 @@ Sheet name: "Collar 90 seconds data 1 week"
 | Ingestion | integer | n/a |
 
 #### Categorical Data
+
 | Category | Value | Description |
 | --- | --- | --- |
 | Ingestion | 0 | Other |
